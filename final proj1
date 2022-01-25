@@ -1,0 +1,74 @@
+class Restaurant():
+    def __init__(self):
+        self.food_stock={}
+        self.food_id={}
+        self.ordered_items=[]
+        self.personal_details={}
+#admin functons:
+    def add_food_items(self):
+        self.name=input("Enter the food item name you want to add : ")
+        self.quantity=input("Enter the quantity of %s : "%(self.name))
+        self.price=input("Enter price of %s per %s : "%(self.name, self.quantity))
+        self.discount=input("Enter discount on %s: "%(self.name))
+        self.stock=input("Enter the %s stock that you want to add: "%(self.name))
+        self.food_id=len(self.food_stock)+1
+        self.food_stock[self.food_id]={"Name":self.name, "Quantity":self.quantity,"Price per quantity": self.price, "Stock": self.stock }
+        print("%s added successfully. its food id is %s"%(self.name, self.food_id))
+    def update_food_items(self):
+        f_id=int(input("Enter food id of food item that you to update\ninput 0 to cancel update:\n "))
+        print(self.food_stock[f_id])
+        if f_id in self.food_stock:
+            for i in self.food_stock[f_id]:
+                if i=="Name":
+                    pass
+                else:
+                    self.food_stock[f_id][i]=input("Enter the you "+i+ " want to update:")
+                    return "update successfull"
+        elif f_id==0:
+            print("process cancelled")
+        else:
+            print("Enter Valid food id")
+            return
+    def show_list_of_items(self):
+        if self.food_stock=={}:
+            print("No items in stock")
+        else:    
+            for i in self.food_stock:
+                print("food id:", i,"\n")
+                for j in self.food_stock[i]:
+                    print(j, ":" ,self.food_stock[i][j])
+    def delete_food_item(self):
+        print(self.food_stock.items())
+        f_id=int(input("Enter food id of item to delete it:\ninput 0 to cancel removing:\n"))
+        if f_id in self.food_stock:
+            del self.food_stock[1]
+            print("process successful")
+        elif f_id==0:
+            print("process cancelled")
+        else:
+            print("food id doesnt exist")
+            return
+#user functionality:
+    def register_user(self):
+        print("registration")
+        self.username= input("Enter your name: ")
+        self.number=(input("Enter your mobile number: "))
+        self.email=input("Enter your email: ")
+        self.address=input("Enter your address: ")
+        self.password=input("Set your password: ")
+        self.user_id=len(self.personal_details) + 1
+        self.personal_details[self.user_id]= {"Username":self.username,"Mobile Number": self.number,"Email":self.email,"Address":self.address, "Password":self.password}
+        print("Thank you for registering %s. Your user id is %s"%(self.username,self.user_id))
+    def login_user(self):
+        print("Login")
+        
+        email=input("Enter your Email to login: ")
+        password=input("Enter your password: ")
+        if len(self.personal_details.values())!=0:
+            for i in self.personal_details:
+                if email== (i["Email"]) and (password==i["Password"]):                     
+                    print("login succesfull")
+                else:
+                    print("incorrect details")                        
+        else:        
+            print("No user data available"
